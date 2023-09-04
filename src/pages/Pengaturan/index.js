@@ -76,9 +76,7 @@ export default function Pengaturan({ navigation }) {
                     }}>Edit Profil</Text>
                     <Icon type='ionicon' name='chevron-forward' color={colors.black} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Tentang', {
-                    jenis: 'Pengembang'
-                })} style={{
+                <TouchableOpacity onPress={() => navigation.navigate('Karya')} style={{
                     flexDirection: 'row',
                     padding: 20,
                     alignItems: 'center',

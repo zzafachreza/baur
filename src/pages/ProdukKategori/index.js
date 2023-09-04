@@ -26,8 +26,13 @@ export default function ProdukKategori({ navigation, route }) {
 
     const __getTransaction = () => {
 
-        axios.post(apiURL + 'karya').then(res => {
+        axios.post(apiURL + 'karya_kategori', {
+            fid_kategori: route.params.id
+        }).then(res => {
+            console.log(route.params.id)
             setData(res.data);
+        }).catch(error => {
+            console.log(error)
         });
 
     }

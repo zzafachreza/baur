@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions, ImageBackground, TouchableWithoutFeedback, Linking } from 'react-native'
+import { Alert, StyleSheet, Text, View, Image, FlatList, ActivityIndicator, Dimensions, ImageBackground, TouchableWithoutFeedback } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { apiURL, getData, MYAPP, storeData } from '../../utils/localStorage';
@@ -18,11 +18,109 @@ import moment from 'moment';
 import 'moment/locale/id';
 import { color } from 'react-native-elements/dist/helpers';
 import MyCarouser from '../../components/MyCarouser';
-export default function Karya() {
+
+export default function Karya({ navigation, route }) {
+
+    const isFocus = useIsFocused();
+    const [data, setData] = useState([]);
+
+    const __getTransaction = () => {
+
+        getData('user').then(uu => {
+            axios.post(apiURL + 'karya_saya', {
+                fid_user: uu.id
+            }).then(res => {
+
+                setData(res.data);
+            }).catch(error => {
+                console.log(error)
+            });
+
+        })
+    }
+
+    const __renderItem = ({ item }) => {
+        return (
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Produk', item)}>
+
+                <View style={{
+                    borderBottomWidth: 1,
+                    borderBottomColor: colors.border,
+                    marginHorizontal: 10,
+                    backgroundColor: colors.white,
+                    padding: 10,
+                    marginVertical: 5,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }}>
+                    <View>
+                        <Image style={{
+                            width: 100,
+                            height: 100,
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
+                        }} source={{
+                            uri: item.foto_karya
+                        }} />
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 20,
+                            backgroundColor: colors.primary,
+                            paddingHorizontal: 10,
+                            borderBottomRightRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            textAlign: 'center',
+                            color: colors.white,
+                        }}>{item.nama_kategori}</Text>
+                    </View>
+                    <View style={{
+                        padding: 10,
+                        flex: 1,
+                    }}>
+
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 20,
+                        }}>{item.judul}</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            color: colors.primary,
+                            fontSize: 15,
+                        }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                        }}>{item.kontensub}...</Text>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
+
+    useEffect(() => {
+        if (isFocus) {
+            __getTransaction();
+        }
+    }, [isFocus]);
+
     return (
-        <View>
-            <Text>Karya</Text>
-        </View>
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: colors.white,
+
+        }}>
+            <MyHeader />
+            <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: 22,
+                color: colors.black,
+                textAlign: 'center',
+                padding: 20,
+                backgroundColor: colors.primary,
+            }}>Karya Saya</Text>
+
+            <FlatList data={data} renderItem={__renderItem} />
+        </SafeAreaView>
     )
 }
 
