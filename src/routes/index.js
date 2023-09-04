@@ -18,6 +18,7 @@ import {
   Search,
   Add,
   Tentang,
+  Karya,
 
 
 
@@ -41,7 +42,7 @@ const MainApp = () => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Add" component={Add} />
-      <Tab.Screen name="Account" component={Pengaturan} />
+      <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 };
@@ -186,8 +187,8 @@ export default function Router() {
       />
 
       <Stack.Screen
-        name="Dokter"
-        component={Dokter}
+        name="Karya"
+        component={Karya}
         options={{
           headerShown: false,
         }}

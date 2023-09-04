@@ -33,9 +33,44 @@ export default function Produk({ navigation, route }) {
             backgroundColor: colors.white
         }}>
             <MyHeader />
+            <View style={{
+                padding: 10,
+                backgroundColor: colors.secondary,
+                flexDirection: 'row',
+                marginBottom: 10,
+            }}>
+                <View>
+                    <Image source={require('../../assets/logo.png')} style={{
+                        width: 50,
+                        height: 50,
+                    }} />
+                </View>
+                <View style={{
+                    paddingLeft: 10,
+                    flex: 1,
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        color: colors.black,
+                        fontSize: 15,
+                    }}>{item.nama_kategori}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        color: colors.black,
+                        fontSize: 15,
+                    }}>{item.nama_lengkap}</Text>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        color: colors.black,
+                        fontSize: 15,
+                    }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
+                </View>
+            </View>
             <ScrollView style={{
                 padding: 10,
             }}>
+
+
                 <Image source={{
                     uri: item.foto_karya
                 }} style={{
@@ -47,6 +82,7 @@ export default function Produk({ navigation, route }) {
                     fontFamily: fonts.secondary[600],
                     fontSize: 25,
                 }}>{item.judul}</Text>
+
                 <Text style={{
                     marginTop: 10,
                     fontFamily: fonts.secondary[400],

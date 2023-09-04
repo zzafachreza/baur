@@ -123,39 +123,49 @@ export default function Search({ navigation, route }) {
     const __renderItem = ({ item }) => {
         return (
             <TouchableWithoutFeedback onPress={() => navigation.navigate('Produk', item)}>
+
                 <View style={{
                     marginHorizontal: 10,
                     backgroundColor: colors.white,
                     padding: 10,
                     marginVertical: 5,
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    alignItems: 'center'
                 }}>
                     <View>
                         <Image style={{
                             width: 100,
                             height: 100,
-                            borderRadius: 10,
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
                         }} source={{
                             uri: item.foto_karya
                         }} />
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 20,
+                            backgroundColor: colors.primary,
+                            paddingHorizontal: 10,
+                            borderBottomRightRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            textAlign: 'center',
+                            color: colors.white,
+                        }}>{item.nama_kategori}</Text>
                     </View>
                     <View style={{
                         padding: 10,
                         flex: 1,
                     }}>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            fontSize: 20,
-                            backgroundColor: colors.primary,
-                            alignSelf: 'flex-end',
-                            paddingHorizontal: 10,
-                            borderRadius: 10,
-                            color: colors.white,
-                        }}>{item.nama_kategori}</Text>
+
                         <Text style={{
                             fontFamily: fonts.secondary[600],
                             fontSize: 20,
                         }}>{item.judul}</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            color: colors.primary,
+                            fontSize: 15,
+                        }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
                         <Text style={{
                             fontFamily: fonts.secondary[400],
                             fontSize: 15,

@@ -19,6 +19,14 @@ import RNFS from 'react-native-fs';
 
 export default function Pengaturan({ navigation }) {
 
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        getData('user').then(res => {
+            setUser(res);
+        })
+    }, [])
+
     const btnKeluar = () => {
         Alert.alert(MYAPP, 'Apakah kamu yakin akan keluar ?', [
             {
@@ -52,9 +60,10 @@ export default function Pengaturan({ navigation }) {
                 flex: 1,
                 padding: 20,
             }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Account')} style={{
+                <TouchableOpacity onPress={() => navigation.navigate('AccountEdit', user)} style={{
                     flexDirection: 'row',
                     padding: 20,
+                    alignItems: 'center',
                     marginVertical: 2
                 }}>
                     <Icon type='ionicon' name='person-outline' size={20} />
@@ -64,12 +73,44 @@ export default function Pengaturan({ navigation }) {
                         fontFamily: fonts.primary[600],
                         fontSize: windowWidth / 20,
                         color: colors.black
-                    }}>Profil Saya</Text>
+                    }}>Edit Profil</Text>
                     <Icon type='ionicon' name='chevron-forward' color={colors.black} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Tentang', {
-                    jenis: 'Aplikasi'
+                    jenis: 'Pengembang'
                 })} style={{
+                    flexDirection: 'row',
+                    padding: 20,
+                    alignItems: 'center',
+                    marginVertical: 2
+                }}>
+                    <Icon type='ionicon' name='bookmarks-outline' size={20} />
+                    <Text style={{
+                        left: 5,
+                        flex: 1,
+                        fontFamily: fonts.primary[600],
+                        fontSize: windowWidth / 20,
+                        color: colors.black
+                    }}>Karya Saya</Text>
+                    <Icon type='ionicon' name='chevron-forward' color={colors.black} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Add')} style={{
+                    flexDirection: 'row',
+                    padding: 20,
+                    marginVertical: 2,
+                    alignItems: 'center'
+                }}>
+                    <Icon type='ionicon' name='add-circle-outline' size={20} />
+                    <Text style={{
+                        left: 5,
+                        flex: 1,
+                        fontFamily: fonts.primary[600],
+                        fontSize: windowWidth / 20,
+                        color: colors.black
+                    }}>Buat Tulisan</Text>
+                    <Icon type='ionicon' name='chevron-forward' color={colors.black} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Tentang')} style={{
                     flexDirection: 'row',
                     padding: 20,
                     marginVertical: 2
@@ -81,26 +122,10 @@ export default function Pengaturan({ navigation }) {
                         fontFamily: fonts.primary[600],
                         fontSize: windowWidth / 20,
                         color: colors.black
-                    }}>Tentang Aplikasi</Text>
+                    }}>Tentang Kami</Text>
                     <Icon type='ionicon' name='chevron-forward' color={colors.black} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Tentang', {
-                    jenis: 'Pengembang'
-                })} style={{
-                    flexDirection: 'row',
-                    padding: 20,
-                    marginVertical: 2
-                }}>
-                    <Icon type='ionicon' name='code-slash-outline' size={20} />
-                    <Text style={{
-                        left: 5,
-                        flex: 1,
-                        fontFamily: fonts.primary[600],
-                        fontSize: windowWidth / 20,
-                        color: colors.black
-                    }}>Tentang Pengembang</Text>
-                    <Icon type='ionicon' name='chevron-forward' color={colors.black} />
-                </TouchableOpacity>
+
 
 
 

@@ -26,12 +26,69 @@ export default function ProdukKategori({ navigation, route }) {
 
     const __getTransaction = () => {
 
-        axios.post(apiURL + 'kategori').then(res => {
+        axios.post(apiURL + 'karya').then(res => {
             setData(res.data);
         });
 
     }
 
+    const __renderItem = ({ item }) => {
+        return (
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Produk', item)}>
+
+                <View style={{
+                    borderBottomWidth: 1,
+                    borderBottomColor: colors.border,
+                    marginHorizontal: 10,
+                    backgroundColor: colors.white,
+                    padding: 10,
+                    marginVertical: 5,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }}>
+                    <View>
+                        <Image style={{
+                            width: 100,
+                            height: 100,
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
+                        }} source={{
+                            uri: item.foto_karya
+                        }} />
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 20,
+                            backgroundColor: colors.primary,
+                            paddingHorizontal: 10,
+                            borderBottomRightRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            textAlign: 'center',
+                            color: colors.white,
+                        }}>{item.nama_kategori}</Text>
+                    </View>
+                    <View style={{
+                        padding: 10,
+                        flex: 1,
+                    }}>
+
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: 20,
+                        }}>{item.judul}</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            color: colors.primary,
+                            fontSize: 15,
+                        }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 15,
+                        }}>{item.kontensub}...</Text>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
 
     useEffect(() => {
         if (isFocus) {
@@ -48,48 +105,14 @@ export default function ProdukKategori({ navigation, route }) {
             <MyHeader />
             <Text style={{
                 fontFamily: fonts.secondary[600],
-                fontSize: 14,
+                fontSize: 22,
+                color: colors.black,
                 textAlign: 'center',
-            }}>{route.params.menu}</Text>
+                padding: 20,
+                backgroundColor: colors.primary,
+            }}>{route.params.nama_kategori}</Text>
 
-            <ScrollView style={{
-                padding: 10,
-            }}>
-
-                {data.map(i => {
-
-                    return (
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate('Produk', i)}>
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                borderBottomWidth: 1,
-                                borderBottomColor: colors.zavalabs
-                            }}>
-
-                                <Image source={{
-                                    uri: i.image
-                                }} style={{
-                                    width: 65,
-                                    height: 65
-                                }} />
-
-                                <Text style={{
-                                    left: 10,
-                                    fontFamily: fonts.secondary[600],
-                                    fontSize: 15,
-                                    flex: 1,
-                                }}>{i.nama_kategori}</Text>
-
-                                <Icon type='ionicon' name='chevron-forward' size={25} color={colors.primary} />
-
-                            </View>
-                        </TouchableWithoutFeedback>
-
-                    )
-                })}
-                <MyGap jarak={20} />
-            </ScrollView>
+            <FlatList data={data} renderItem={__renderItem} />
         </SafeAreaView>
     )
 }

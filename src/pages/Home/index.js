@@ -97,7 +97,7 @@ export default function Home({ navigation, route }) {
 
   const __renderItemKategori = ({ item }) => {
     return (
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('ProdukKategori', item)}>
         <View style={{
           width: 80,
           paddingHorizontal: 10,
@@ -145,6 +145,11 @@ export default function Home({ navigation, route }) {
               fontFamily: fonts.secondary[600],
               fontSize: 20,
             }}>{item.judul}</Text>
+            <Text style={{
+              fontFamily: fonts.secondary[600],
+              color: colors.primary,
+              fontSize: 15,
+            }}>{moment(item.tanggal).format('dddd, DD MMMM YYYY')}</Text>
             <Text style={{
               fontFamily: fonts.secondary[400],
               fontSize: 15,
