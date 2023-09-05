@@ -52,7 +52,7 @@ export default function Add({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        // setLoading(true);
+        setLoading(true);
         axios.post(apiURL + 'karya_add', kirim).then(res => {
             showMessage({
                 type: 'success',
@@ -150,7 +150,12 @@ export default function Add({ navigation, route }) {
                         })
                     }} placeholder="Masukan judul" />
                     <MyGap jarak={10} />
-                    <MyPicker label="Kategori" iconname="options-outline" data={dataKategori} />
+                    <MyPicker label="Kategori" onValueChange={x => {
+                        setKirim({
+                            ...kirim,
+                            fid_kategori: x
+                        })
+                    }} iconname="options-outline" data={dataKategori} />
                     <MyGap jarak={10} />
                     <MyInput onChangeText={x => {
                         setKirim({
